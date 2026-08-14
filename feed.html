@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Feed — The Empey Effect</title>
+<meta name="description" content="Quotes, good news, and volunteer opportunities shared by The Empey Effect community.">
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="The Empey Effect logo">
+      <span>The Empey Effect</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="feed.html" class="active">Community Feed</a></li>
+      <li><a href="#photos">Photo Wall</a></li>
+      <li><a href="#share">Share Something</a></li>
+      <li><a href="index.html#give-back">Give Back</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" style="min-height:44vh;">
+  <div class="container hero-inner">
+    <p class="eyebrow" style="color:#E1AC42;">The bulletin board</p>
+    <h1 style="font-size:clamp(2rem,4.4vw,3.2rem);">Quotes, good news,<br>and ways to help.</h1>
+    <p>Everything pinned here comes straight from The Empey Effect. New posts go up regularly — check back often.</p>
+  </div>
+</header>
+
+<svg class="crack-divider section-teal" viewBox="0 0 1200 34" preserveAspectRatio="none" style="background:var(--teal-deep);"><path d="M0,10 L90,22 160,9 230,20 300,13 380,24 450,11 520,19 590,10 660,23 740,14 810,21 880,9 950,18 1030,12 1100,22 1200,14" style="stroke:rgba(251,247,238,.35);"/></svg>
+
+<section class="board" id="feed">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" style="color:var(--gold);">Community feed</p>
+      <h2 style="color:var(--paper);">Pinned to the board</h2>
+    </div>
+    <div class="feed-controls" role="group" aria-label="Filter posts by type">
+      <button class="filter-btn active" data-filter="All">All</button>
+      <button class="filter-btn" data-filter="Quote">Quotes</button>
+      <button class="filter-btn" data-filter="News">Good News</button>
+      <button class="filter-btn" data-filter="Volunteer">Volunteering</button>
+    </div>
+    <div id="feed-grid" class="feed-grid" aria-live="polite">
+      <p class="feed-empty">Loading the board…</p>
+    </div>
+  </div>
+</section>
+
+<svg class="crack-divider section-sand" viewBox="0 0 1200 34" preserveAspectRatio="none"><path d="M0,18 L120,15 140,24 210,10 260,20 330,12 400,22 470,9 540,19 610,14 690,25 760,11 830,20 900,13 970,23 1050,10 1120,18 1200,15"/></svg>
+
+<section class="section-sand" id="photos">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Photo wall</p>
+      <h2>Moments from the community</h2>
+      <p class="lede">Kindness in action, shared by the people living it.</p>
+    </div>
+    <div id="photo-wall" class="photo-wall">
+      <p class="photo-empty">Loading photos…</p>
+    </div>
+  </div>
+</section>
+
+<svg class="crack-divider section-teal" viewBox="0 0 1200 34" preserveAspectRatio="none" style="background:var(--teal-deep);"><path d="M0,10 L90,22 160,9 230,20 300,13 380,24 450,11 520,19 590,10 660,23 740,14 810,21 880,9 950,18 1030,12 1100,22 1200,14" style="stroke:rgba(251,247,238,.35);"/></svg>
+
+<section class="section-paper" id="share">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Got something to share?</p>
+      <h2>Send it our way</h2>
+      <p class="lede">A quote, a good-news story, a volunteer opportunity, or just something on your mind — send it in. It goes straight to a private inbox that only I see, so no email address needed on your end.</p>
+    </div>
+
+    <div class="share-form">
+      <h3>Send a message</h3>
+      <p>I read every submission myself, and I'll only ever post something publicly if it fits the board.</p>
+      <form name="community-submission" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleShareSubmit(event)">
+        <input type="hidden" name="form-name" value="community-submission">
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <div class="share-form-row two-col">
+          <div>
+            <label for="share-name">Name (optional)</label>
+            <input id="share-name" type="text" name="name" placeholder="Just a first name is fine">
+          </div>
+          <div>
+            <label for="share-type">What is this?</label>
+            <select id="share-type" name="type">
+              <option value="Quote">A quote</option>
+              <option value="News">A good-news story</option>
+              <option value="Volunteer">A volunteer opportunity</option>
+              <option value="Other" selected>Something else</option>
+            </select>
+          </div>
+        </div>
+        <div class="share-form-row">
+          <label for="share-message">Your message</label>
+          <textarea id="share-message" name="message" placeholder="Share it here..." required></textarea>
+        </div>
+        <button type="submit">Send privately</button>
+      </form>
+      <p class="form-success" id="share-success">Thank you — this came through to a private inbox, and I'll take a look soon.</p>
+      <p class="fine-print">This isn't public. Nobody sees this but the person who runs The Empey Effect, and nothing gets posted to the board without a review first.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+function handleShareSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(data).toString() })
+    .then(() => {
+      form.style.display = "none";
+      document.getElementById("share-success").style.display = "block";
+    })
+    .catch(() => {
+      form.style.display = "none";
+      document.getElementById("share-success").style.display = "block";
+    });
+  return false;
+}
+</script>
+
+<footer>
+  <div class="container">
+    <span>© <span id="year"></span> The Empey Effect · Waterloo, WI</span>
+    <a class="admin-link" href="admin/">Admin</a>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/main.js"></script>
+</body>
+</html>

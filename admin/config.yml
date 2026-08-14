@@ -1,0 +1,66 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Only people invited through Netlify Identity (see README.md) can
+# log in here and make changes — that's what keeps this "admin only."
+site_url: https://YOUR-SITE-NAME.netlify.app
+display_url: https://YOUR-SITE-NAME.netlify.app
+logo_url: /images/logo.png
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "feed"
+    label: "Community Feed"
+    description: "Quotes, good news, and volunteer opportunities pinned to the board on the Community Feed page."
+    files:
+      - file: "content/feed.json"
+        label: "Feed Posts"
+        name: "feed"
+        fields:
+          - label: "Posts"
+            name: "posts"
+            widget: "list"
+            summary: "{{fields.type}} — {{fields.title}}"
+            fields:
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options: ["Quote", "News", "Volunteer"]
+              - label: "Title"
+                name: "title"
+                widget: "string"
+              - label: "Body"
+                name: "body"
+                widget: "text"
+              - label: "Link (optional)"
+                name: "link"
+                widget: "string"
+                required: false
+                hint: "e.g. a link to the news story or volunteer sign-up page"
+              - label: "Date"
+                name: "date"
+                widget: "datetime"
+
+  - name: "photos"
+    label: "Photo Wall"
+    description: "Photos shown on the Photo Wall section of the Community Feed page."
+    files:
+      - file: "content/photos.json"
+        label: "Photos"
+        name: "photos"
+        fields:
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            fields:
+              - label: "Image"
+                name: "image"
+                widget: "image"
+              - label: "Caption (optional)"
+                name: "caption"
+                widget: "string"
+                required: false
