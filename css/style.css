@@ -75,6 +75,55 @@ a:focus-visible, button:focus-visible{
 }
 
 /* ============================================
+   KINDNESS COUNTER
+   ============================================ */
+.kindness-bar{
+  background: var(--ink);
+  color: var(--paper);
+  text-align:center;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  letter-spacing: .06em;
+  padding: 9px 12px;
+}
+.kindness-bar strong{
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* like button on feed notes */
+.note-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top: 10px;
+}
+.like-btn{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid rgba(28,37,48,.2);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .8rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .1s ease;
+}
+.like-btn:hover{ border-color: var(--clay); transform: translateY(-1px); }
+.like-btn.liked{
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--paper);
+  cursor: default;
+}
+.like-btn:disabled{ cursor: default; }
+.like-btn .like-count{ font-family: var(--font-mono); }
+
+/* ============================================
    NAV
    ============================================ */
 .site-nav{
