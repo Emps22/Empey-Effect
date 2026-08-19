@@ -12,6 +12,7 @@ function fmtDate(iso){
 }
 
 const TAG_LABEL = { Quote: 'Quote', News: 'Good News', Volunteer: 'Volunteer opportunity' };
+const ABACUS_NAMESPACE = 'empeyeffect-waterloo-wi';
 
 // Turns a post's title + date into a stable, unique key for the like
 // counter — no extra field needed in the admin panel.
@@ -21,7 +22,7 @@ function slugify(str){
 }
 function likeKeyFor(post){
   const stamp = post.date ? new Date(post.date).getTime() : 0;
-  return 'empeyeffect-like-' + slugify(post.title) + '-' + stamp;
+  return 'like-' + slugify(post.title).slice(0, 40) + '-' + stamp;
 }
 
 let allPosts = [];
@@ -75,7 +76,7 @@ function initLikeButtons(){
     const alreadyLiked = localStorage.getItem('liked:' + key) === '1';
     if(alreadyLiked) btn.classList.add('liked');
 
-    fetch('https://countapi.mileshilliard.com/api/v1/get/' + key)
+    fetch(`https://abacus.jasoncameron.dev/get/${ABACUS_NAMESPACE}/${key}`)
       .then(res => res.ok ? res.json() : { value: 0 })
       .then(data => { countEl.textContent = Number(data.value) || 0; })
       .catch(() => { countEl.textContent = '0'; });
@@ -88,7 +89,7 @@ document.addEventListener('click', (e) => {
   const key = btn.dataset.key;
   const countEl = btn.querySelector('.like-count');
   btn.disabled = true;
-  fetch('https://countapi.mileshilliard.com/api/v1/hit/' + key)
+  fetch(`https://abacus.jasoncameron.dev/hit/${ABACUS_NAMESPACE}/${key}`)
     .then(res => res.json())
     .then(data => {
       countEl.textContent = Number(data.value) || '+1';
