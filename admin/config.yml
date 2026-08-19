@@ -28,7 +28,7 @@ collections:
               - label: "Type"
                 name: "type"
                 widget: "select"
-                options: ["Quote", "News", "Volunteer"]
+                options: ["Quote", "News", "Volunteer", "Video"]
               - label: "Title"
                 name: "title"
                 widget: "string"
@@ -39,7 +39,7 @@ collections:
                 name: "link"
                 widget: "string"
                 required: false
-                hint: "e.g. a link to the news story or volunteer sign-up page"
+                hint: "For a news story or sign-up page, any link works. For a Video post, paste a YouTube, Facebook video, or Vimeo link here and it'll embed and play right on the page."
               - label: "Date"
                 name: "date"
                 widget: "datetime"

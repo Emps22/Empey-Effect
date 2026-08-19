@@ -11,8 +11,37 @@ function fmtDate(iso){
   return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
 }
 
-const TAG_LABEL = { Quote: 'Quote', News: 'Good News', Volunteer: 'Volunteer opportunity' };
+const TAG_LABEL = { Quote: 'Quote', News: 'Good News', Volunteer: 'Volunteer opportunity', Video: 'Video' };
 const ABACUS_NAMESPACE = 'empeyeffect-waterloo-wi';
+
+// Turns a YouTube / Facebook / Vimeo link into an embeddable player URL.
+// Returns null if the link isn't a recognized video URL.
+function videoEmbedSrc(url){
+  if(!url) return null;
+  try{
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, '');
+
+    if(host === 'youtu.be'){
+      const id = u.pathname.slice(1);
+      return id ? `https://www.youtube.com/embed/${id}` : null;
+    }
+    if(host === 'youtube.com' || host === 'm.youtube.com'){
+      const id = u.searchParams.get('v');
+      if(id) return `https://www.youtube.com/embed/${id}`;
+      if(u.pathname.startsWith('/shorts/')) return `https://www.youtube.com/embed/${u.pathname.split('/')[2]}`;
+      return null;
+    }
+    if(host === 'vimeo.com'){
+      const id = u.pathname.split('/').filter(Boolean)[0];
+      return id ? `https://player.vimeo.com/video/${id}` : null;
+    }
+    if(host === 'facebook.com' || host === 'fb.watch'){
+      return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false`;
+    }
+  }catch(err){ /* not a valid URL */ }
+  return null;
+}
 
 // Turns a post's title + date into a stable, unique key for the like
 // counter — no extra field needed in the admin panel.
@@ -51,12 +80,18 @@ function renderFeed(){
   }
   grid.innerHTML = posts.map((p, i) => {
     const key = likeKeyFor(p);
+    const embedSrc = p.type === 'Video' ? videoEmbedSrc(p.link) : null;
+    const isVideo = p.type === 'Video';
     return `
-    <article class="note" style="--tilt:${tiltFor(i)}">
+    <article class="note${isVideo ? ' video-note' : ''}" style="--tilt:${isVideo ? '0deg' : tiltFor(i)}">
       <span class="tag">${TAG_LABEL[p.type] || p.type || 'Post'}</span>
       <h4>${escapeHtml(p.title || '')}</h4>
+      ${embedSrc
+        ? `<div class="video-embed"><iframe src="${escapeAttr(embedSrc)}" title="${escapeAttr(p.title || 'Video')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+        : ''}
       <p>${escapeHtml(p.body || '')}</p>
-      ${p.link ? `<a class="note-link" href="${escapeAttr(p.link)}" target="_blank" rel="noopener">Learn more →</a>` : ''}
+      ${p.link && !embedSrc ? `<a class="note-link" href="${escapeAttr(p.link)}" target="_blank" rel="noopener">${isVideo ? 'Watch video →' : 'Learn more →'}</a>` : ''}
+      ${p.link && embedSrc ? `<a class="note-link" href="${escapeAttr(p.link)}" target="_blank" rel="noopener">Open on original site →</a>` : ''}
       <div class="note-footer">
         <span class="date">${fmtDate(p.date)}</span>
         <button class="like-btn" data-key="${escapeAttr(key)}" aria-label="Like this post">
