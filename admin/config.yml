@@ -4,8 +4,8 @@ backend:
 
 # Only people invited through Netlify Identity (see README.md) can
 # log in here and make changes — that's what keeps this "admin only."
-site_url: https://YOUR-SITE-NAME.netlify.app
-display_url: https://YOUR-SITE-NAME.netlify.app
+site_url: https://empey-effect.netlify.app
+display_url: https://empey-effect.netlify.app
 logo_url: /images/logo.png
 
 media_folder: "images/uploads"
