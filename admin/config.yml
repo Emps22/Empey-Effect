@@ -64,13 +64,20 @@ collections:
                 name: "caption"
                 widget: "string"
                 required: false
-                - name: "challenge"
+
+  - name: "challenge"
     label: "Weekly Challenge"
     files:
-      - file: "content/challenge.json"
-        label: "Current Challenge"
-        name: "challenge"
+      - file: "content/challenges.json"
+        label: "Challenges"
+        name: "challenges"
         fields:
-          - {label: "Week Label", name: "week_label", widget: "string"}
-          - {label: "Challenge", name: "challenge_text", widget: "string"}
-          - {label: "Why it matters (optional)", name: "why", widget: "text", required: false}
+          - label: "Challenges"
+            name: "challenges"
+            widget: "list"
+            summary: "{{fields.week_label}} — {{fields.challenge_text}}"
+            fields:
+              - {label: "Week Label", name: "week_label", widget: "string"}
+              - {label: "Challenge", name: "challenge_text", widget: "string"}
+              - {label: "Why it matters (optional)", name: "why", widget: "text", required: false}
+              - {label: "Date", name: "date", widget: "datetime"}
