@@ -40,6 +40,12 @@
       "date": "2026-11-09T09:52:00.000-06:00",
       "challenge_text": "Thank someone out loud. Pick one person who helped you this month, like a coworker, a neighbor, or the person at the checkout, and tell them specifically what they did and why it mattered.",
       "week_label": "This Week's Challenge"
+    },
+    {
+      "challenge_text": "Name three things you're thankful for, and tell one person what they were.",
+      "week_label": "This Week's Challenge",
+      "date": "2026-11-23T16:00:00.000-06:00",
+      "why": "It takes about a minute, and saying it out loud makes it stick. It's also a nice way to start a Thanksgiving conversation."
     }
   ]
 }
